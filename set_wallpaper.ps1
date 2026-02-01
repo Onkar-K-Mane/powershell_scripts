@@ -1,23 +1,16 @@
-# ================================
-# CONFIG
-# ================================
-$imageUrl  = "https://wallpapersafari.com/you-have-been-hacked-wallpaper/"   # <-- put your image link here
-$savePath  = "$env:TEMP\downloaded_wallpaper.jpg"
+$imageUrl = "https://wallpapercave.com/wp/wp1922265.jpg"
+$savePath = "$env:TEMP\wallpaper.jpg"
 
-# ================================
-# DOWNLOAD IMAGE
-# ================================
+# Download the image
 try {
-    Invoke-WebRequest -Uri $imageUrl -OutFile $savePath -UseBasicParsing
+    Invoke-WebRequest -Uri $imageUrl -OutFile $savePath -UseBasicParsing -ErrorAction Stop
 }
 catch {
-    Write-Error "Failed to download image"
+    Write-Error "Failed to download image from $imageUrl"
     exit 1
 }
 
-# ================================
-# SET WALLPAPER (Windows API)
-# ================================
+# Set wallpaper via Windows API
 Add-Type @"
 using System.Runtime.InteropServices;
 public class Wallpaper {
